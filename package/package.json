@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "mysql2": "^2.3.3",
     "symbol-sdk": "2.0.3",
     "typescript": "^4.8.4"
