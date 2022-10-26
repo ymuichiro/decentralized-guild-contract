@@ -62,10 +62,10 @@ CREATE TABLE IF NOT EXISTS quest (
 ### トランザクションパターン
 #### 受注時
 
-種別：アグボン
-発信者：受付嬢
-受信者：Requester, Worker
-中身：Symbol 0xym、本文に受注時の案件ID（RDBから引っ張ってきた）を書き込み。
+- 種別：アグボン
+- 発信者：受付嬢
+- 受信者：Requester, Worker
+- 中身：Symbol 0xym、本文に受注時の案件ID（RDBから引っ張ってきた）を書き込み。
 --> Transaction が completed であることを確認したら RDB 側でステータスを対応中に変更する
 
 ### 完了報告時
@@ -74,10 +74,10 @@ WEB FORM　--> Requester チェック。承認したら報酬↓へ進む
 
 ### 報酬時
 
-種別：アグボン
-発信者：受付嬢
-受信者：Requester, Worker
-中身：Symbol 報酬分の枚数のxym、1WRP+1GPT（※ギルド加入時のみ）本文に受注時の案件ID（RDBから引っ張ってきた）を書き込み
+- 種別：アグボン
+- 発信者：受付嬢
+- 受信者：Requester, Worker
+- 中身：Symbol 報酬分の枚数のxym、1WRP+1GPT（※ギルド加入時のみ）本文に受注時の案件ID（RDBから引っ張ってきた）を書き込み
 --> Transaction が completed であることを確認したら RDB 側でステータスを完了に変更する
 
 
