@@ -11,8 +11,9 @@ export const signUp = async function (userData: User) {
     */
 
     //SSSの代わりに以下で署名
-    const dummyAcc = Account.createFromPrivateKey('BBD394D0EE4E10650D5BF15D1389580C6A6C044481E52022A98CD288A2EB679D', networkType);
+    const dummyAcc = Account.createFromPrivateKey('286A162AED0E607978DDD84197F5A3A2EA6BA0971388FED0C5653EE643AD1906', networkType);
     const signedAggTransaction = dummyAcc.sign(aggregateTransaction, generationHash);
+    console.log("signedAggTransaction:" + signedAggTransaction.payload)
 
     // アグボンはハッシュロックも署名が必要なため二度SSSで署名が必要。少しラグを設けないとバグるためのsetTimeout
     setTimeout(async () => {
@@ -23,6 +24,7 @@ export const signUp = async function (userData: User) {
         */
         //SSSの代わりに以下で署名
         const signedHashLockTransaction = dummyAcc.sign(hashlockTransaction, generationHash);
+        console.log("signedHashLockTransaction:" + signedHashLockTransaction.payload)
         announceSignUpTransactions(signedAggTransaction, signedHashLockTransaction);
     },1000)
 }

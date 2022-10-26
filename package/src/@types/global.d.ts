@@ -8,6 +8,7 @@ declare module 'process' {
         DATABASE_USER_NAME?: string;
         DATABASE_USER_PASS?: string;
         DATABASE_TZ?: string;
+        VERIFIER_PRIVATE_KEY?: string;
       }
     }
   }

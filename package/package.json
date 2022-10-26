@@ -6,6 +6,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "mysql2": "^2.3.3",
+    "sss-module": "^1.0.4",
     "symbol-sdk": "2.0.3",
     "typescript": "^4.8.4"
   },
