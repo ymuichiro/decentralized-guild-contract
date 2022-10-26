@@ -10,6 +10,20 @@ services:
       - MYSQL_PASSWORD=${DATABASE_USER_PASS}
       - MYSQL_RANDOM_ROOT_PASSWORD="yes"
       - TZ=${DATABASE_TZ}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "mysql",
+          "-pmysql"
+        ]
+      timeout: 20s
+      retries: 10
     command: --secure-file-priv="/"
     ports:
       - "3306:3306"
@@ -43,7 +57,8 @@ services:
     networks:
       - primary
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
 networks:
   primary:
