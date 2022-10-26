@@ -14,6 +14,7 @@
   },
   "scripts": {
     "compose:up": "docker compose up -d",
+    "start:remote": "docker exec guild-backend yarn --cwd /workspace/package run start",
     "start": "ts-node-dev --respawn ./src/index.ts"
   }
 }
