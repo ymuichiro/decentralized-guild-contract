@@ -1,9 +1,12 @@
 import query from "./services/database";
 import { User } from './models/User';
-import { login, joinGuild, establishGuild } from './frontend';
+import { login, joinGuild, establishGuild, receivedOrder } from './frontend';
 
 // ここで開発したコントラクトをテストする
 console.log("> start application");
+
+// 受注コントラクト
+receivedOrder();
 
 //ログイン
 //login();
