@@ -19,5 +19,10 @@ CREATE TABLE IF NOT EXISTS quest (
   `created`               DATETIME
 )
 
-
+CREATE TABLE IF NOT EXISTS notice (
+  `id`                    TEXT,  
+  `title`                 TEXT,
+  `body`                  TEXT,
+  `created`               DATETIME
+)
 
