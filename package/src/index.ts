@@ -1,22 +1,18 @@
 import query from "./services/database";
 import { User } from './models/User';
-import { signUp } from './contracts/signUp';
-import { login } from './frontend';
+import { login, joinGuild, establishGuild } from './frontend';
 
 // ここで開発したコントラクトをテストする
 console.log("> start application");
 
-login();
+//ログイン
+//login();
 
-/*
-const user: User = {
-  name: "Bob",
-  address: "NBQIOW4GBPZ3R73EBJ55AVDPJQ457ZJEJ73K7KI",
-  publicKey: "20131B4B0BC5239B7D2EF65B1D31630E7347A90CD65DE347168208B815F3EE77",
-};
+// ギルド参加コントラクト
+//joinGuild();
 
-signUp(user);
-*/
+// ギルド建立コントラクト
+//establishGuild();
 
 /*
 query("SHOW TABLES", ...[]).then(e => {

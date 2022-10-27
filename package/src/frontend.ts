@@ -1,6 +1,11 @@
-import { getActiveAccountToken, getActivePublicKey } from 'sss-module';
-import { verifierPublicKey } from './config';
+import { getActiveAccountToken, getActivePublicKey, setTransaction, requestSign } from 'sss-module';
+import { verifierPublicKey, networkType, generationHash, establisherPublicKey, establisherPrivateKey} from './config';
 import { auth } from './services/login';
+import { establishGuildTransaction } from './services/establishGuild';
+import { createJoinGuildAggregateTransaction } from './services/joinGuild';
+import { announceAggregateBonded, createJoinHashLockTransaction } from './services/utils';
+import { User } from './models/User';
+import { Account } from 'symbol-sdk';
 
 export const login = async function () {
   try {
@@ -23,3 +28,64 @@ export const login = async function () {
     // 署名は正しくありませんでした
   }
 };
+
+export const joinGuild = async function () {
+
+  // フォームなどでUserデータを取得、以下はテスト用
+  const user: User = {
+    name: "Bob",
+    address: "TBS2EI4K66LVQ57HMUFXYAJQGIFUR25Z4GTFZUI",
+    publicKey: "B055C6F655CD3101A04567F9499F24BE7AB970C879887BD3C6644AB7CAA22D22",
+  };
+  
+  const aggregateTransaction = await createJoinGuildAggregateTransaction(user);
+  // 本番フロント用
+  //setTransaction(aggregateTransaction);
+  //const signedAggTransaction = await requestSign();
+
+  // テスト用 要参加希望者の秘密鍵
+  const dummyAcc = Account.createFromPrivateKey('D2F4CB68224057808FC2A5B28A1BDC958634FC904809D16CA8F55FBDCE8FB3E3', networkType);
+  const signedAggTransaction = dummyAcc.sign(aggregateTransaction, generationHash);
+  
+  // アグボンはハッシュロックも署名が必要なため二度SSSで署名が必要。少しラグを設けないとバグるためのsetTimeout
+  setTimeout(async () => {
+      const hashlockTransaction = await createJoinHashLockTransaction(signedAggTransaction);
+      // 本番フロント用
+      //setTransaction(hashlockTransaction);
+      //const signedHashLockTransaction = await requestSign();
+      
+      // テスト用
+      const signedHashLockTransaction = dummyAcc.sign(hashlockTransaction, generationHash);
+      announceAggregateBonded(signedAggTransaction, signedHashLockTransaction);
+  },1000)
+}
+
+export const establishGuild = async function (){
+  // 本番フロント用
+  //const publicKey = getActivePublicKey();
+
+  // テスト用
+  const publicKey = establisherPublicKey;
+  
+  const aggAndOwner = await establishGuildTransaction(publicKey);
+
+  // 本番フロント用
+  //setTransaction(aggAndOwner.aggregateTransactio);
+  //const signedAggTransaction = await requestSignWithCosignatories([aggAndOwner.guildOwnerAcc]);
+
+  // テスト用
+  const establisher = Account.createFromPrivateKey(establisherPrivateKey, networkType);
+  const signedAggTransaction = establisher.signTransactionWithCosignatories(aggAndOwner.aggregateTransaction, [aggAndOwner.guildOwnerAcc], generationHash);
+  
+  // アグボンはハッシュロックも署名が必要なため二度SSSで署名が必要。少しラグを設けないとバグるためのsetTimeout
+  setTimeout(async () => {
+      const hashlockTransaction = await createJoinHashLockTransaction(signedAggTransaction);
+      // 本番フロント用
+      //setTransaction(hashlockTransaction);
+      //const signedHashLockTransaction = await requestSign();
+      
+      // テスト用
+      const signedHashLockTransaction = establisher.sign(hashlockTransaction, generationHash);
+      announceAggregateBonded(signedAggTransaction, signedHashLockTransaction);
+  },1000)
+}
