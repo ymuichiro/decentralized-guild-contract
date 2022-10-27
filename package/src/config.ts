@@ -30,5 +30,5 @@ export const guildPointId = "5723ADD9F8610384";
 export const depositFeeAmount = 10000000;
 // test
 export const establisherPrivateKey = 'DEA5FDB45AEB9485F1D612B738DA3ECD7817E547D44B6D8123ACE15511AED7D1';
-export const kagenMosaicId = '4EB02B2A69A6D891';
+export const kagenMosaicId = '681E2FB3218A1419';
 export const jougenMosaicId = '109C1C409343C449';

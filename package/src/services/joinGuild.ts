@@ -1,25 +1,28 @@
-import { User } from '../models/User';
-import { PublicAccount, AccountMetadataTransaction, Deadline, KeyGenerator, Convert, AggregateTransaction, TransferTransaction, Mosaic, UInt64, PlainMessage, HashLockTransaction, SignedTransaction } from 'symbol-sdk';
-import { networkType, guildUserMetadataKey, epochAdjustment, ownerPublic, createAccountTaxFee, networkCurrencyMosaicId, createAccountTaxMessage, networkCurrencyDivisibility } from '../config'
+import { PublicAccount, Deadline, AggregateTransaction, TransferTransaction, Mosaic, UInt64, PlainMessage, MosaicId } from 'symbol-sdk';
+import { networkType, kagenMosaicId, epochAdjustment, ownerPublic, createAccountTaxFee, networkCurrencyMosaicId, createAccountTaxMessage } from '../config'
 
-export const createJoinGuildAggregateTransaction = async function (userData: User) {
-    const json = JSON.stringify(userData);
-    const userPublic = PublicAccount.createFromPublicKey(
-        userData.publicKey,
+export const createJoinGuildAggregateTransaction = async function (publicKey: string) {
+    const applicantPublic = PublicAccount.createFromPublicKey(publicKey,networkType,);
+
+    const guildMosaicTransfer = TransferTransaction.create(
+        Deadline.createEmtpy(),
+        applicantPublic.address,
+        [new Mosaic(new MosaicId(kagenMosaicId),UInt64.fromUint(1))],
+        PlainMessage.create('give guild mosaic'),
         networkType,
     );
-    const metaTx = AccountMetadataTransaction.create(
+
+    const dummy = TransferTransaction.create(
         Deadline.createEmtpy(),
-        userPublic.address,
-        KeyGenerator.generateUInt64Key(guildUserMetadataKey),
-        json.length,
-        Convert.utf8ToUint8(json),
+        ownerPublic.address,
+        [],
+        PlainMessage.create('applicant'),
         networkType,
     );
 
     let aggTx = AggregateTransaction.createBonded(
         Deadline.create(epochAdjustment),
-        [metaTx.toAggregate(ownerPublic)],
+        [guildMosaicTransfer.toAggregate(ownerPublic), dummy.toAggregate(applicantPublic)],
         networkType,
         [],
     ).setMaxFeeForAggregate(100, 1);
@@ -37,7 +40,7 @@ export const createJoinGuildAggregateTransaction = async function (userData: Use
             PlainMessage.create(createAccountTaxMessage),
             networkType,
         );
-        aggTx.innerTransactions.push(taxTx.toAggregate(userPublic));
+        aggTx.innerTransactions.push(taxTx.toAggregate(applicantPublic));
         aggTx = aggTx.setMaxFeeForAggregate(100, 1);
     }
     return aggTx;

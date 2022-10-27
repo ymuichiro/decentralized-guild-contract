@@ -32,20 +32,19 @@ export const login = async function () {
 
 export const joinGuild = async function () {
 
-  // フォームなどでUserデータを取得、以下はテスト用
-  const user: User = {
-    name: "Bob",
-    address: "TBS2EI4K66LVQ57HMUFXYAJQGIFUR25Z4GTFZUI",
-    publicKey: "B055C6F655CD3101A04567F9499F24BE7AB970C879887BD3C6644AB7CAA22D22",
-  };
+  // 本番フロント用
+  // const publicKey = getActivePublicKey();
+
+  // テスト用
+  const publicKey = "87B3802189D9C74AECF8915B015ACD4A69CE777EE4DDE8B51ADF6237AFC65478";
   
-  const aggregateTransaction = await createJoinGuildAggregateTransaction(user);
+  const aggregateTransaction = await createJoinGuildAggregateTransaction(publicKey);
   // 本番フロント用
   //setTransaction(aggregateTransaction);
   //const signedAggTransaction = await requestSign();
 
   // テスト用 要参加希望者の秘密鍵
-  const dummyAcc = Account.createFromPrivateKey('D2F4CB68224057808FC2A5B28A1BDC958634FC904809D16CA8F55FBDCE8FB3E3', networkType);
+  const dummyAcc = Account.createFromPrivateKey('B9B39486BEFD899BC678D5A7E99186E190076605702D5904721C684F266A257D', networkType);
   const signedAggTransaction = dummyAcc.sign(aggregateTransaction, generationHash);
   
   // アグボンはハッシュロックも署名が必要なため二度SSSで署名が必要。少しラグを設けないとバグるためのsetTimeout
@@ -116,7 +115,7 @@ export const receivedOrder = async function (){
   // ハッシュを登録しておくと後ほど検索に便利
   // insert...quest table, hash colom -> signedAggTransaction.hash
   // 書き方全然分からないのでこんなイメージでｗ
-  
+
   // アグボンはハッシュロックも署名が必要なため二度SSSで署名が必要。少しラグを設けないとバグるためのsetTimeout
   setTimeout(async () => {
       const hashlockTransaction = await createJoinHashLockTransaction(signedAggTransaction);

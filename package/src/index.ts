@@ -6,13 +6,13 @@ import { login, joinGuild, establishGuild, receivedOrder } from './frontend';
 console.log("> start application");
 
 // 受注コントラクト
-receivedOrder();
+//receivedOrder();
 
 //ログイン
 //login();
 
 // ギルド参加コントラクト
-//joinGuild();
+joinGuild();
 
 // ギルド建立コントラクト
 //establishGuild();
