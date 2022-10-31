@@ -4,6 +4,7 @@ import { SystemFee } from "./models/Tax";
 
 /**
  * 検証用データ。本データはフロントエンド側の GlobalState or SSS により管理されているもの
+ * 本来はサーバー側から引っ張ってくるが、ハッカソン期間中はノード情報等はハードコードでいいと思う
  */
 export const TEST_DATA = {
   WORKER: {
@@ -14,15 +15,24 @@ export const TEST_DATA = {
         "B9B39486BEFD899BC678D5A7E99186E190076605702D5904721C684F266A257D",
     },
   },
-  SYSTEM: {
+  REQUESTER: {
     KEY: {
       PUBLIC:
-        "6F50170029B2647B883EB43A7451104EC4086373814DC7A4D115825B3B705126",
+        "87B3802189D9C74AECF8915B015ACD4A69CE777EE4DDE8B51ADF6237AFC65478",
+      PRIVATE:
+        "DEA5FDB45AEB9485F1D612B738DA3ECD7817E547D44B6D8123ACE15511AED7D1",
+    },
+  },
+  GUILD_OWNER: {
+    KEY: {
+      PUBLIC:
+        "B12D953B142CAF46652DCA769A1816B33FD66C8BB727DC8158388ED013285A8F",
+      PRIVATE: "",
     },
   },
   NETWORK: {
     generationHash:
-      "7FCCD304802016BEBBCD342A332F91FF1F3BB5E902988B352697BE245F48E836",
+      "CD5BBD868762461096AAEFF3ECC4254099F9B60F538CF3EB47359F27A9185060",
     type: 152,
     epochAdjustment: 1637848847,
     currencyMosaicId: "3A8416DB2D53B6C8",
@@ -35,6 +45,7 @@ export const TEST_DATA = {
     createAccount: 0,
     createQuest: 0,
     acceptQuest: 0,
+    deposit: 0,
   } as SystemFee,
   AUTH: {
     TOKEN:

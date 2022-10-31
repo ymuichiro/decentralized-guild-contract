@@ -15,6 +15,18 @@ export default class SystemService {
   protected constructor() {}
 
   /**
+   * システムアカウントのパブリックキーを取得します。
+   */
+  protected static getSystemPublicKey(): string {
+    if (process.env.SYSTEM_PUBLIC_KEY) {
+      return process.env.SYSTEM_PUBLIC_KEY;
+    }
+    throw new Error(
+      "System Error: `process.env.SYSTEM_PUBLIC_KEY` is not defined."
+    );
+  }
+
+  /**
    * システム手数料を取得する。本番環境の場合、システムより徴収する
    */
   protected static async getSystemFees(): Promise<SystemFee> {

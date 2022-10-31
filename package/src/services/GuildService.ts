@@ -41,13 +41,13 @@ export default class GuildService extends SystemService {
    */
   public static async establishGuild(
     guildOwnerPublicKey: string,
-    systemPublicKey: string,
     guildMosaicId: string,
     guildOwnerMosaicIdsMetadataKey: string,
     mosaicSupplyAmount: number,
     network: Network
   ) {
     const applicantPublicKey = this.getActivePublicKey();
+    const systemPublicKey = this.getSystemPublicKey();
     // 一旦認識合わせ後
     // await establishGuildTransaction();
     // await this.sendToCosigTransaction();

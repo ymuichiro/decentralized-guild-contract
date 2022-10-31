@@ -6,4 +6,5 @@ export interface SystemFee {
   createAccount: number;
   createQuest: number;
   acceptQuest: number;
+  deposit: number;
 }

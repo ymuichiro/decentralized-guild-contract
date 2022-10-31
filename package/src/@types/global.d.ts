@@ -1,4 +1,4 @@
-declare module 'process' {
+declare module "process" {
   global {
     namespace NodeJS {
       interface ProcessEnv {
@@ -8,6 +8,7 @@ declare module 'process' {
         DATABASE_USER_NAME?: string;
         DATABASE_USER_PASS?: string;
         DATABASE_TZ?: string;
+        SYSTEM_PUBLIC_KEY?: string;
         VERIFIER_PRIVATE_KEY?: string;
       }
     }
