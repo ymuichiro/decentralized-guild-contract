@@ -1,21 +1,41 @@
-import query from "./services/database";
-import { User } from './models/User';
-import { login, joinGuild, establishGuild, receivedOrder } from './frontend';
+import { TEST_DATA } from "./config";
+import { AuthService } from "./services/AuthService";
+import GuildService from "./services/GuildService";
+import QuestService from "./services/QuestService";
 
 // ここで開発したコントラクトをテストする
 console.log("> start application");
 
-// 受注コントラクト
-//receivedOrder();
+console.log("-".repeat(10), "AuthService.login", "-".repeat(10));
+AuthService.login(TEST_DATA.NETWORK).then(console.log);
 
-//ログイン
-//login();
+console.log("-".repeat(10), "QuestService.receivedOrder", "-".repeat(10));
+QuestService.receivedOrder(
+  "contractId",
+  TEST_DATA.REQUESTER.KEY.PUBLIC,
+  TEST_DATA.FEE,
+  TEST_DATA.NODE,
+  TEST_DATA.NETWORK
+);
 
-// ギルド参加コントラクト
-joinGuild();
+console.log("-".repeat(10), "GuildService.establishGuild", "-".repeat(10));
+GuildService.establishGuild(
+  TEST_DATA.GUILD_OWNER.KEY.PUBLIC,
+  "",
+  "",
+  1000,
+  TEST_DATA.NETWORK
+);
 
-// ギルド建立コントラクト
-//establishGuild();
+console.log("-".repeat(10), "GuildService.joinRequest", "-".repeat(10));
+GuildService.joinRequest(
+  TEST_DATA.GUILD_OWNER.KEY.PUBLIC,
+  "guildMosaicId",
+  TEST_DATA.NODE,
+  TEST_DATA.NETWORK
+);
+
+// ---------------------- old --------------------------------
 
 /*
 query("SHOW TABLES", ...[]).then(e => {
