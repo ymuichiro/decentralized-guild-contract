@@ -15,7 +15,7 @@ import { JudgeMent } from '../models/Quest'
  * 仕事納品時のコントラクト
  * Requester,Workerの評価に合わせてトランザクションが変化する
  */
-export const createDeliverdOrderTransaction = async function (
+export const createDeliverdOrderTransaction = function (
   requesterPublicKey: string,
   workerPublicKey: string,
   guildOwnerPublicKey: string,
@@ -27,7 +27,7 @@ export const createDeliverdOrderTransaction = async function (
   workerJudgement: JudgeMent,
   systemFee: SystemFee,
   network: Network,
-): Promise<AggregateTransaction> {
+): AggregateTransaction {
   /*
     コントラクト作成
   */
