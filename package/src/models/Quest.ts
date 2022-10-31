@@ -1,3 +1,7 @@
+export enum JudgeMent {
+  GOOD,
+  BAD,
+}
 export enum QuestStatus {
   WANTED = "WANTED",
   WORKING = "WORKING",
