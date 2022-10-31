@@ -39,11 +39,14 @@ sequenceDiagram
     Establisher(AggKicker)-->>System: 署名要求
     Establisher(AggKicker)-->>GuidOwner: アカウント作成
     Establisher(AggKicker)-->>GuidOwner: マルチシグ（垢作成時に秘密鍵を一瞬サーバーが把握するので署名は要らない）
-    System-->>GuidOwner: ギルドオーナーモザイク付与
-    GuidOwner-->>GuidOwner: 下弦ギルドモザイク作成
-    GuidOwner-->>GuidOwner: 上弦ギルドモザイク作成
+    System-->>GuidOwner: ギルドオーナーモザイク付与（※1）
+    GuidOwner-->>GuidOwner: 下弦ギルドモザイク作成（※2）
+    GuidOwner-->>GuidOwner: 上弦ギルドモザイク作成（※3）
     System-->>GuidOwner: メタデータで上下弦モザイクID
 ```
+- ※1 ... システムがギルドであると証明する為のシステム発行のモザイク。各ギルド共通。
+- ※2 ... ギルドオーナーが発行するモザイク。ギルド会員である事を証明する為のリボーカブルなトークン。
+- ※3 ... ギルドオーナーが発行するモザイク。ギルド内で貢献者に対してオーナーから渡される。ギルド内での議決権の強さを表す。
 
 
 
