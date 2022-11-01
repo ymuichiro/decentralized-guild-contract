@@ -1,4 +1,5 @@
 import { createRecievedOrderAggregateTransaction } from "../Contracts/createRecievedOrderAggregateTransaction";
+import { createDeliverdOrderTransaction } from "../Contracts/createDeliverdOrderTransaction";
 import { Network, NodeInfo } from "../models/Network";
 import { SystemFee } from "../models/Tax";
 import SystemService from "./SystemService";
@@ -52,5 +53,20 @@ export default class QuestService extends SystemService {
     // ハッシュを登録しておくと後ほど検索に便利
     // insert...quest table, hash colom -> signedAggTransaction.hash
     // 書き方全然分からないのでこんなイメージでｗ
+  }
+
+  /**
+   * クエストを納品する
+   */
+   public static async deliveredOrder(
+    contractId: string,
+    requesterPublicKey: string,
+    fee: SystemFee,
+    node: NodeInfo,
+    network: Network
+  ) {
+    // 後ほど作成する
+    const workerPublicKey = this.getActivePublicKey();
+    const systemPublicKey = this.getSystemPublicKey();
   }
 }
