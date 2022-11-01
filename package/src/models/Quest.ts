@@ -1,4 +1,4 @@
-export enum JudgeMent {
+export enum Evaluation {
   GOOD,
   BAD,
 }

@@ -10,12 +10,12 @@ import {
   MosaicSupplyRevocationTransaction,
   TransferTransaction,
 } from "symbol-sdk/dist/src/model/transaction";
-import { JudgeMent } from '../models/Quest'
+import { Evaluation } from '../models/Quest'
 /**
  * 仕事納品時のコントラクト
  * Requester,Workerの評価に合わせてトランザクションが変化する
  */
-export const createDeliverdOrderTransaction = function (
+export const deliverdOrderTransaction = function (
   requesterPublicKey: string,
   workerPublicKey: string,
   guildOwnerPublicKey: string,
@@ -23,8 +23,8 @@ export const createDeliverdOrderTransaction = function (
   reward: number,
   wrpMosaicId: string,
   guildPointMosaicId: string,
-  requesterJudgement: JudgeMent,
-  workerJudgement: JudgeMent,
+  requesterJudgement: Evaluation,
+  workerJudgement: Evaluation,
   systemFee: SystemFee,
   network: Network,
 ): AggregateTransaction {
@@ -88,7 +88,7 @@ export const createDeliverdOrderTransaction = function (
   )
 
   // Requesterの評価が良であればWRPを付与する
-  if(requesterJudgement == JudgeMent.GOOD) {
+  if(requesterJudgement == Evaluation.GOOD) {
     const sendWrpRequesterTransaction = TransferTransaction.create(
       Deadline.createEmtpy(),
       requesterPublicAccount.address,
@@ -109,7 +109,7 @@ export const createDeliverdOrderTransaction = function (
   }
 
   // Workerの評価が良であればWRPを付与する
-  if(workerJudgement == JudgeMent.GOOD) {
+  if(workerJudgement == Evaluation.GOOD) {
     const sendWrpWorkerTransaction = TransferTransaction.create(
       Deadline.createEmtpy(),
       workerPublicAccount.address,

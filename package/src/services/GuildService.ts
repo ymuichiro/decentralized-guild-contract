@@ -1,4 +1,4 @@
-import { createJoinGuildAggregateTransaction } from "../Contracts/createJoinGuildAggregateTransaction";
+import { joinGuildAggregateTransaction } from "../Contracts/joinGuildAggregateTransaction";
 import { establishGuildTransaction } from "../Contracts/establishGuildTransaction";
 import { Network, NodeInfo } from "../models/Network";
 import SystemService from "./SystemService";
@@ -26,7 +26,7 @@ export default class GuildService extends SystemService {
   ) {
     const systemFees = await this.getSystemFees();
     const applicantPublicKey = this.getActivePublicKey();
-    const contract = await createJoinGuildAggregateTransaction(
+    const contract = await joinGuildAggregateTransaction(
       applicantPublicKey,
       guildOwnerPublicKey,
       guildMosaicId,
