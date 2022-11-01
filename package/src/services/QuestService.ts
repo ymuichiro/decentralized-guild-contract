@@ -1,4 +1,4 @@
-import { recievedOrderAggregateTransaction } from "../Contracts/recievedOrderAggregateTransaction";
+import { recievedOrderTransaction } from "../Contracts/recievedOrderTransaction";
 import { deliverdOrderTransaction } from "../Contracts/deliverdOrderTransaction";
 import { Network, NodeInfo } from "../models/Network";
 import { SystemFee } from "../models/Tax";
@@ -29,7 +29,7 @@ export default class QuestService extends SystemService {
     const workerPublicKey = this.getActivePublicKey();
     const systemPublicKey = this.getSystemPublicKey();
 
-    const aggregateTransaction = await recievedOrderAggregateTransaction(
+    const aggregateTransaction = await recievedOrderTransaction(
       contractId,
       requesterPublicKey,
       workerPublicKey,

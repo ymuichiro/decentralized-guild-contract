@@ -14,7 +14,7 @@ import {
  * ギルド参加申請を行う際のコントラクト
  * モザイクIDは下位ギルドモザイクトークンを指定する
  */
-export const joinGuildAggregateTransaction = async function (
+export const joinGuildTransaction = async function (
   applicantPublicKey: string,
   guildOwnerPublicKey: string,
   lowGuildMosaicId: string,
